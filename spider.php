@@ -12,6 +12,7 @@ foreach($url_array as $url){
        	@$doc->loadHTML($page_data);
 		
 	$finder = new DomXPath($doc);
+	// modify this based on data you need from target website
 	$classname="column3li";
 	$nodes = $finder->query("//*[contains(@class, '$classname')]/li/h2");
 	$param[] = $url;
