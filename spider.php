@@ -7,17 +7,20 @@
 $url_array[] = 'http://www.example.com/blahblah-url';
 $url_array[] = 'http://www.example.com/blahblah-url-2';
 
-$fp = fopen(time().'_file.csv', 'w');
+
+$fileName = (isset($_GET['fn'])?$_GET['fn']:time()); 
+$fp = fopen($fileName.'_file.csv', 'w');
 $reload = false;
 $start = (isset($_GET['limit'])?$_GET['limit']:0);
 $total = sizeof($url_array);
-$stop = $start+20;
+$stop = $start+5;
 if($stop > $total){
 $stop = $total;
 }else{
     $reload = true;
 }
-
+echo $start. ' = '. $stop . ' = '.$total;
+ 
 for($i=$start; $i <= $stop; $i++){
 	
 	if(!isset($url_array[$i])){ break; }
@@ -51,6 +54,7 @@ for($i=$start; $i <= $stop; $i++){
 }
 fclose($fp);
 if($reload){
-    echo '<meta http-equiv="refresh" content="0; url=spider.php?limit='.$stop.'" />';
+   echo '<meta http-equiv="refresh" content="0; url=spider.php?limit='.$stop.'&fn='.$fileName.'" />';
 }
+
 ?>
