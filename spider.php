@@ -51,6 +51,6 @@ for($i=$start; $i <= $stop; $i++){
 }
 fclose($fp);
 if($reload){
-    echo '<meta http-equiv="refresh" content="0; url=index.php?limit='.$stop.'" />';
+    echo '<meta http-equiv="refresh" content="0; url=spider.php?limit='.$stop.'" />';
 }
 ?>
