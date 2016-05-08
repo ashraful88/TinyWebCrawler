@@ -1,12 +1,24 @@
 <?php
-
+/**
+ * Add urls in  $url_array
+ * running the script will create a csv file with data
+ * */
+ 
 $url_array[] = 'http://www.example.com/blahblah-url';
 $url_array[] = 'http://www.example.com/blahblah-url-2';
 
 $fp = fopen(time().'_file.csv', 'w');
-$limit = (isset($_GET['limit'])?$_GET['limit']:0);
+$reload = false;
+$start = (isset($_GET['limit'])?$_GET['limit']:0);
+$total = sizeof($url_array);
+$stop = $start+20;
+if($stop > $total){
+$stop = $total;
+}else{
+    $reload = true;
+}
 
-for($i=$limit; $i <= ($limit+20); $i++){
+for($i=$start; $i <= $stop; $i++){
 	
 	if(!isset($url_array[$i])){ break; }
 	$url = $url_array[$i];
@@ -38,5 +50,7 @@ for($i=$limit; $i <= ($limit+20); $i++){
 	
 }
 fclose($fp);
-echo '<meta http-equiv="refresh" content="0; url=spider.php?limit='.($limit+20).'" />';
+if($reload){
+    echo '<meta http-equiv="refresh" content="0; url=index.php?limit='.$stop.'" />';
+}
 ?>
