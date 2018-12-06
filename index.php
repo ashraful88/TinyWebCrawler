@@ -53,7 +53,14 @@ for ($i = $start; $i <= $stop; $i++) {
   foreach ($nodes as $n) {
     echo $n->nodeValue;
     echo '====';
-    $param[] = $n->nodeValue;
+    
+    // nasted selector
+    $childDom = $finder->query("descendant::*[@class='grid-price-holder']", $ad);
+  
+    $param[] = [ 
+      'cur' => $n->nodeValue, 
+      'child'=> $childDom[0]->nodeValue
+    ];
   }
   echo '<hr/>';
 
